@@ -17,8 +17,7 @@ This is a simple web application that tracks the International Space Station (IS
 - HTML
 - CSS
 - JavaScript
-- 
-## Mapbox API for map rendering
+- Mapbox API for map rendering
 - Open Notify API for ISS location data
 
 ## Credits
