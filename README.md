@@ -18,11 +18,11 @@ This is a simple web application that tracks the International Space Station (IS
 - CSS
 - JavaScript
 - Mapbox API for map rendering
-- Open Notify API for ISS location data
+- [Where the ISS at? API](https://wheretheiss.at/) for ISS location data
 
 ## Credits
 - Mapbox for map rendering
-- Open Notify for ISS location data
+- [Where the ISS at?](https://wheretheiss.at/) for ISS location data
 
 ## License
 This project is licensed under the GNU (General Public License) - see the [LICENSE](https://github.com/Roblify/ISS-Tracker-Project-Open-Source/blob/main/LICENSE) file for details.
