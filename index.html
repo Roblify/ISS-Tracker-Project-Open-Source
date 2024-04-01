@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>International Space Station Tracker</title>
+    <link rel="shortcut icon" type="x-icon" href="ISS.png">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div id='map'></div>
+    <div id="buttonContainer">
+        <button id="themeButton">Theme</button>
+        <button id="lockButton">Lock/Unlock</button>
+    </div>
+    <div id="issInfo">
+        <p>Latitude: <span id="latitude"></span></p>
+        <p>Longitude: <span id="longitude"></span></p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <script src="script.js"></script>
+</body>
+</html>
