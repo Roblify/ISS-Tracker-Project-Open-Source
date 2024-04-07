@@ -29,14 +29,6 @@ var issIcon = new mapboxgl.Marker({
     anchor: 'bottom'
 });
 
-var themes = ['mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/satellite-v9', 'mapbox://styles/mapbox/dark-v10'];
-var currentThemeIndex = 0;
-
-document.getElementById('themeButton').addEventListener('click', function () {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    map.setStyle(themes[currentThemeIndex]);
-});
-
 issIcon.getElement().src = 'ISS.png';
 issIcon.getElement().style.width = '50px';
 issIcon.getElement().style.height = '50px';
@@ -60,6 +52,12 @@ function updateISSLocation() {
         var velocity = data['velocity'];
         var visibility = data['visibility'];
         var footprint = data['footprint'];
+
+        if (visibility === 'eclipsed') {
+            map.setStyle('mapbox://styles/mapbox/dark-v10');
+        } else {
+            map.setStyle('mapbox://styles/mapbox/streets-v11');
+        }
 
         issIcon.setLngLat([lon, lat]).addTo(map);
         if (!isLocked) {
