@@ -98,14 +98,26 @@ function calculateDistance(lat, lon) {
 
 var userLat, userLon;
 
-document.getElementById('distanceButton').addEventListener('click', function () {
-    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY_LINK_HERE")) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            userLat = position.coords.latitude;
-            userLon = position.coords.longitude;
+function getLocationByIP() {
+    fetch('https://ipinfo.io/json?token=YOUR_API_KEY')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch IP location');
+            }
+            return response.json();
+        })
+        .then(data => {
+            userLat = data.loc.split(',')[0];
+            userLon = data.loc.split(',')[1];
             var distance = calculateDistance(userLat, userLon);
             document.getElementById('distance').textContent = distance.toFixed(2) + ' km (' + (distance * 0.621371).toFixed(2) + ' mi)';
-        });
+        })
+        .catch(error => console.error('Error fetching location:', error));
+}
+
+document.getElementById('distanceButton').addEventListener('click', function () {
+    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY")) {
+        getLocationByIP();
     }
 });
 
