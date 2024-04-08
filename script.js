@@ -79,9 +79,17 @@ function updateISSLocation() {
         document.getElementById('visibility').textContent = visibility;
         document.getElementById('footprint').textContent = numberWithCommas(footprint.toFixed(2)) + ' km² (' + numberWithCommas((footprint * 0.386102).toFixed(2)) + ' mi²)';
         document.getElementById('distance').textContent = numberWithCommas(distance.toFixed(2)) + ' km (' + numberWithCommas((distance * 0.621371).toFixed(2)) + ' mi)';
+    
+        if (!disableDistance) {
+            document.getElementById('footprint').textContent = numberWithCommas(footprint.toFixed(2)) + ' km² (' + numberWithCommas((footprint * 0.386102).toFixed(2)) + ' mi²)';
+        } else {
+            document.getElementById('distance').textContent = 'DISABLED';
+        }
     });
     setTimeout(updateISSLocation, 5000);
 }
+
+var disableDistance = true;
 
 function calculateDistance(lat, lon) {
     var R = 6371;
@@ -100,12 +108,7 @@ var userLat, userLon;
 
 function getLocationByIP() {
     fetch('https://ipinfo.io/json?token=YOUR_API_KEY')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch IP location');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             userLat = data.loc.split(',')[0];
             userLon = data.loc.split(',')[1];
@@ -116,9 +119,15 @@ function getLocationByIP() {
 }
 
 document.getElementById('distanceButton').addEventListener('click', function () {
-    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY")) {
+    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY_LINK")) {
         getLocationByIP();
+        disableDistance = false;
     }
+});
+
+document.getElementById('disableDistance').addEventListener('click', function ()  {
+    disableDistance = true;
+    document.getElementById('distance').textContent = 'DISABLED';
 });
 
 function deg2rad(deg) {
