@@ -46,6 +46,10 @@ function updateClockTime() {
 
 setInterval(updateClockTime, 1000);
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function updateISSLocation() {
     $.getJSON('https://api.wheretheiss.at/v1/satellites/25544', function (data) {
         var lat = data['latitude'];
@@ -54,6 +58,8 @@ function updateISSLocation() {
         var velocity = data['velocity'];
         var visibility = data['visibility'];
         var footprint = data['footprint'];
+
+        var distance = calculateDistance(lat, lon);
 
         if (visibility === 'eclipsed') {
             mapStyle = map.setStyle('mapbox://styles/mapbox/dark-v10');
@@ -68,14 +74,43 @@ function updateISSLocation() {
 
         document.getElementById('latitude').textContent = lat;
         document.getElementById('longitude').textContent = lon;
-        document.getElementById('latitude').textContent = lat;
-        document.getElementById('longitude').textContent = lon;
-        document.getElementById('altitude').textContent = altitude.toFixed(2) + ' km (' + (altitude * 0.621371).toFixed(2) + ' mi)';
-        document.getElementById('velocity').textContent = (Math.round(velocity * 100) / 100).toFixed(2) + ' km/h (' + (Math.round((velocity * 0.621371) * 100) / 100).toFixed(2) + ' mph)';
+        document.getElementById('altitude').textContent = numberWithCommas(altitude.toFixed(2)) + ' km (' + numberWithCommas((altitude * 0.621371).toFixed(2)) + ' mi)';
+        document.getElementById('velocity').textContent = numberWithCommas((Math.round(velocity * 100) / 100).toFixed(2)) + ' km/h (' + numberWithCommas((Math.round((velocity * 0.621371) * 100) / 100).toFixed(2)) + ' mph)';
         document.getElementById('visibility').textContent = visibility;
-        document.getElementById('footprint').textContent = footprint.toFixed(2) + ' km² (' + (footprint * 0.386102).toFixed(2) + ' mi²)';
+        document.getElementById('footprint').textContent = numberWithCommas(footprint.toFixed(2)) + ' km² (' + numberWithCommas((footprint * 0.386102).toFixed(2)) + ' mi²)';
+        document.getElementById('distance').textContent = numberWithCommas(distance.toFixed(2)) + ' km (' + numberWithCommas((distance * 0.621371).toFixed(2)) + ' mi)';
     });
     setTimeout(updateISSLocation, 5000);
+}
+
+function calculateDistance(lat, lon) {
+    var R = 6371;
+    var dLat = deg2rad(lat - userLat);
+    var dLon = deg2rad(lon - userLon);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(userLat)) * Math.cos(deg2rad(lat)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+}
+
+var userLat, userLon;
+
+document.getElementById('distanceButton').addEventListener('click', function () {
+    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY_LINK_HERE")) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            userLat = position.coords.latitude;
+            userLon = position.coords.longitude;
+            var distance = calculateDistance(userLat, userLon);
+            document.getElementById('distance').textContent = distance.toFixed(2) + ' km (' + (distance * 0.621371).toFixed(2) + ' mi)';
+        });
+    }
+});
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
 }
 
 updateISSLocation();
