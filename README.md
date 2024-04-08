@@ -5,6 +5,7 @@ This is a simple web application that tracks the International Space Station (IS
 - Real-time tracking of the ISS's location.
 - Lock/unlock feature to keep the map centered on the ISS's position.
 - Theme switcher to change the map style (street view, satellite view, dark mode).
+- Enable Distance button which shows how far the International Space Station is away from you.
 
 ## How to Use
 - Clone the repository to your local machine.
@@ -38,7 +39,7 @@ This Privacy Policy describes how your personal information is collected, used, 
 When you use the International Space Station Tracker, we collect your IP address to calculate the distance between your location and the International Space Station. We do not store or share your IP address with third parties.
 
 ## How We Use Your Personal Information
-We use your IP address solely for the purpose of calculating the distance between your location and the International Space Station. We do not use this information for any other purpose.
+We use your IP address solely for the purpose of calculating the distance between your location and the International Space Station when clicking the "Enable Distance" button. We do not use this information for any other purpose.
 
 ## Sharing Your Personal Information
 We do not share your personal information, including your IP address, with third parties.
