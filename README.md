@@ -5,6 +5,7 @@ This is a simple web application that tracks the International Space Station (IS
 - Real-time tracking of the ISS's location.
 - Lock/unlock feature to keep the map centered on the ISS's position.
 - Enable Distance button which shows how far the International Space Station is away from you.
+- If the Visibility is Daylight, then the Map theme is light, but if the Visibility is Eclipsed, then the Map theme is dark.
 
 ## How to Use
 - Clone the repository to your local machine.
