@@ -12,7 +12,6 @@ This is a simple web application that tracks the International Space Station (IS
 - Clone the repository to your local machine.
 - Open `index.html` in a web browser.
 - Click the "Lock/Unlock" button to lock or unlock the map's center on the ISS's position.
-- Use the "Theme" button to switch between different map styles.
 - The latitude and longitude of the ISS's current position are displayed at the bottom left of the map.
 
 ## Technologies Used
