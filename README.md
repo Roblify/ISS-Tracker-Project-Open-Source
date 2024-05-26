@@ -4,7 +4,6 @@ This is a simple web application that tracks the International Space Station (IS
 ## Features
 - Real-time tracking of the ISS's location.
 - Lock/unlock feature to keep the map centered on the ISS's position.
-- Theme switcher to change the map style (street view, satellite view, dark mode).
 - Enable Distance button which shows how far the International Space Station is away from you.
 
 ## How to Use
