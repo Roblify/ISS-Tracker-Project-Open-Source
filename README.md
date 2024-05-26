@@ -8,6 +8,7 @@ This is a simple web application that tracks the International Space Station (IS
 - If the Visibility is Daylight, then the Map theme is light, but if the Visibility is Eclipsed, then the Map theme is dark.
 
 ## How to Use
+- Read and agree to abide by the G.N.U. License.
 - Clone the repository to your local machine.
 - Open `index.html` in a web browser.
 - Click the "Lock/Unlock" button to lock or unlock the map's center on the ISS's position.
