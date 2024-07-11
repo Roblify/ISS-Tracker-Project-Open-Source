@@ -1,6 +1,6 @@
 let mapStyle;
 
-mapboxgl.accessToken = 'YOUR_MAPBOX_KEY';
+mapboxgl.accessToken = 'YOUR_MAPBOX_APIKEY';
 var map = new mapboxgl.Map({
     container: 'map',
     style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
@@ -61,7 +61,7 @@ function updateISSLocation() {
 
         var distance = calculateDistance(lat, lon);
 
-        if (visibility === 'eclipsed') {
+        if (visibility === 'visible') {
             mapStyle = map.setStyle('mapbox://styles/mapbox/dark-v10');
         } else {
             mapStyle = map.setStyle('mapbox://styles/mapbox/streets-v11');
@@ -86,7 +86,7 @@ function updateISSLocation() {
             document.getElementById('distance').textContent = 'DISABLED';
         }
     });
-    setTimeout(updateISSLocation, 5000);
+    setTimeout(updateISSLocation, 1200);
 }
 
 var disableDistance = true;
@@ -107,7 +107,7 @@ function calculateDistance(lat, lon) {
 var userLat, userLon;
 
 function getLocationByIP() {
-    fetch('https://ipinfo.io/json?token=YOUR_API_KEY')
+    fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
         .then(response => response.json())
         .then(data => {
             userLat = data.loc.split(',')[0];
@@ -119,7 +119,7 @@ function getLocationByIP() {
 }
 
 document.getElementById('distanceButton').addEventListener('click', function () {
-    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: YOUR_PRIVACY_POLICY_LINK")) {
+    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: https://github.com/Roblify/ISS-Tracker-Project-Open-Source/blob/main/README.md")) {
         getLocationByIP();
         disableDistance = false;
     }
