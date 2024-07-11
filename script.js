@@ -1,6 +1,6 @@
 let mapStyle;
 
-mapboxgl.accessToken = 'YOUR_MAPBOX_APIKEY';
+mapboxgl.accessToken = 'YOUR_MAPBOX_API_KEY';
 var map = new mapboxgl.Map({
     container: 'map',
     style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
