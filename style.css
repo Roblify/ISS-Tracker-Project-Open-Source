@@ -69,3 +69,41 @@ body {
     z-index: 9999;
     font-style: italic;
 }
+
+#updateIntervalContainer {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#updateIntervalContainer button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-top: 5px;
+}
+
+#updateIntervalContainer button:hover {
+    background-color: #0056b3;
+}
+
+.interval-button {
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.interval-button.active {
+    background-color: darkblue;
+    color: white;
+}
