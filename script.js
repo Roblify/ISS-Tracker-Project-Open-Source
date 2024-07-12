@@ -1,6 +1,6 @@
 let mapStyle;
 
-mapboxgl.accessToken = 'YOUR_MAPBOX_API_KEY';
+mapboxgl.accessToken = 'pk.eyJ1Ijoicm9ibGlmeSIsImEiOiJjbHU0aXoyb3IxZTk3MmlueTQ4NzJvZjIyIn0.aQWpENes8Dl0k8j6dHs00A';
 var map = new mapboxgl.Map({
     container: 'map',
     style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
@@ -10,6 +10,7 @@ var map = new mapboxgl.Map({
 
 let isLocked = false;
 let updateInterval;
+let updateFrequency = 1000; // default to 1 second
 
 document.getElementById('lockButton').addEventListener('click', function () {
     isLocked = !isLocked;
@@ -79,14 +80,14 @@ function updateISSLocation() {
         document.getElementById('visibility').textContent = visibility;
         document.getElementById('footprint').textContent = numberWithCommas(footprint.toFixed(2)) + ' km² (' + numberWithCommas((footprint * 0.386102).toFixed(2)) + ' mi²)';
         document.getElementById('distance').textContent = numberWithCommas(distance.toFixed(2)) + ' km (' + numberWithCommas((distance * 0.621371).toFixed(2)) + ' mi)';
-    
+
         if (!disableDistance) {
             document.getElementById('footprint').textContent = numberWithCommas(footprint.toFixed(2)) + ' km² (' + numberWithCommas((footprint * 0.386102).toFixed(2)) + ' mi²)';
         } else {
             document.getElementById('distance').textContent = 'DISABLED';
         }
     });
-    setTimeout(updateISSLocation, 1200);
+    updateInterval = setTimeout(updateISSLocation, updateFrequency);
 }
 
 var disableDistance = true;
@@ -104,10 +105,15 @@ function calculateDistance(lat, lon) {
     return d;
 }
 
+// Add the deg2rad function
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
 var userLat, userLon;
 
 function getLocationByIP() {
-    fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
+    fetch('https://ipinfo.io/json?token=59483e0ab3d78e')
         .then(response => response.json())
         .then(data => {
             userLat = data.loc.split(',')[0];
@@ -119,19 +125,38 @@ function getLocationByIP() {
 }
 
 document.getElementById('distanceButton').addEventListener('click', function () {
-    if (confirm("Would you like to calculate the distance from the ISS to your location? This will fetch your IP address for the calculation. If you're concerned about privacy, please head to the following: https://github.com/Roblify/ISS-Tracker-Project-Open-Source/blob/main/README.md")) {
-        getLocationByIP();
+    if (confirm("Would you like to enable distance tracking?")) {
         disableDistance = false;
     }
 });
 
-document.getElementById('disableDistance').addEventListener('click', function ()  {
-    disableDistance = true;
-    document.getElementById('distance').textContent = 'DISABLED';
+document.getElementById('disableDistance').addEventListener('click', function () {
+    if (confirm("Would you like to disable distance tracking?")) {
+        disableDistance = true;
+        document.getElementById('distance').textContent = 'DISABLED';
+    }
 });
 
-function deg2rad(deg) {
-    return deg * (Math.PI / 180)
+getLocationByIP();
+updateISSLocation();
+
+function changeUpdateFrequency(newFrequency) {
+    clearTimeout(updateInterval);
+    updateFrequency = newFrequency;
+    updateISSLocation();
 }
 
-updateISSLocation();
+document.getElementById('interval1').addEventListener('click', function() {
+    changeUpdateFrequency(1000);
+    document.getElementById('bottomText').textContent = 'Tracker updates every 1 second';
+});
+
+document.getElementById('interval5').addEventListener('click', function() {
+    changeUpdateFrequency(5000);
+    document.getElementById('bottomText').textContent = 'Tracker updates every 5 seconds';
+});
+
+document.getElementById('interval10').addEventListener('click', function() {
+    changeUpdateFrequency(10000);
+    document.getElementById('bottomText').textContent = 'Tracker updates every 10 seconds';
+});
