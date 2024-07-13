@@ -62,7 +62,7 @@ function updateISSLocation() {
 
         var distance = calculateDistance(lat, lon);
 
-        if (visibility === 'visible') {
+        if (visibility === 'eclipsed') {
             mapStyle = map.setStyle('mapbox://styles/mapbox/dark-v10');
         } else {
             mapStyle = map.setStyle('mapbox://styles/mapbox/streets-v11');
