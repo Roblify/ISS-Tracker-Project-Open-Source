@@ -1,6 +1,6 @@
 let mapStyle;
 
-mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN_HERE';
+mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
 var map = new mapboxgl.Map({
     container: 'map',
     style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
@@ -38,7 +38,11 @@ issIcon.getElement().style.height = '50px';
 
 function getCurrentTime() {
     const now = new Date();
-    return now.toLocaleString() + ' ' + now.toString().match(/\(([A-Za-z\s].*)\)/)[1].split(' ')[0];
+    const locale = navigator.language;
+    const date = now.toLocaleDateString(locale);
+    const time = now.toLocaleTimeString(locale);
+    const timezone = now.toString().match(/\(([A-Za-z\s].*)\)/)[1].split(' ')[0];
+    return `${date} ${time} ${timezone}`;
 }
 
 function updateClockTime() {
