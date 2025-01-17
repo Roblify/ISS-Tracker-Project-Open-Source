@@ -1,6 +1,6 @@
 let mapStyle;
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoicm9ibGlmeSIsImEiOiJjbHU0aXoyb3IxZTk3MmlueTQ4NzJvZjIyIn0.aQWpENes8Dl0k8j6dHs00A';
+mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN_HERE';
 var map = new mapboxgl.Map({
     container: 'map',
     style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
@@ -112,7 +112,7 @@ function deg2rad(deg) {
 var userLat, userLon;
 
 function getLocationByIP() {
-    fetch('https://ipinfo.io/json?token=59483e0ab3d78e')
+    fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
         .then(response => response.json())
         .then(data => {
             userLat = data.loc.split(',')[0];
