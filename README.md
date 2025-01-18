@@ -23,7 +23,7 @@ This is a simple web application that tracks the International Space Station (IS
 - [ipinfo.io](https://ipinfo.io/) for distance from you information
 
 ## Credits
-- Mapbox for map rendering
+- [Mapbox](https://www.mapbox.com/) for map rendering
 - [Where the ISS at?](https://wheretheiss.at/) for ISS location data
 - [ipinfo.io](https://ipinfo.io/) for grabbing the distance from you and the International Space Station
 
