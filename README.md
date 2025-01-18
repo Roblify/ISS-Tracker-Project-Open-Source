@@ -25,7 +25,7 @@ This is a simple web application that tracks the International Space Station (IS
 ## Credits
 - [Mapbox](https://www.mapbox.com/) for map rendering
 - [Where the ISS at?](https://wheretheiss.at/) for ISS location data
-- [ipinfo.io](https://ipinfo.io/) for grabbing the distance from you and the International Space Station
+- [ipinfo.io](https://ipinfo.io/) for fetching the distance from you to the International Space Station
 
 ## License
 This project is licensed under the GNU (General Public License) - see the [LICENSE](https://github.com/Roblify/ISS-Tracker-Project-Open-Source/blob/main/LICENSE) file for details.
