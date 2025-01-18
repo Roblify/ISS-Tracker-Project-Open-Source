@@ -166,7 +166,7 @@ document.getElementById('lockButton').addEventListener('click', function () {
         map.flyTo({ center: [lon, lat], zoom: 4 });
     } else {
         map.flyTo({ center: mapCenter, zoom: mapZoom });
-        map.dragPan.disable();
-        map.scrollZoom.disable();
+        map.dragPan.enable();
+        map.scrollZoom.enable();
     }
 });
