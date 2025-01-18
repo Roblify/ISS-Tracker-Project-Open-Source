@@ -1,31 +1,19 @@
 let mapStyle;
+let mapCenter = [0, 0];
+let mapZoom = 2;
 
 mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+
 var map = new mapboxgl.Map({
     container: 'map',
-    style: mapStyle || 'mapbox://styles/mapbox/streets-v11',
-    center: [0, 0],
-    zoom: 2
+    style: mapStyle || 'mapbox://styles/mapbox/outdoors-v12',
+    center: mapCenter,
+    zoom: mapZoom
 });
 
 let isLocked = false;
 let updateInterval;
 let updateFrequency = 1000;
-
-document.getElementById('lockButton').addEventListener('click', function () {
-    isLocked = !isLocked;
-    map.dragPan.disable();
-    map.scrollZoom.disable();
-
-    clearInterval(updateInterval);
-
-    if (isLocked) {
-        map.flyTo({ center: [15, 17], zoom: 1.7 });
-    } else {
-        map.dragPan.enable();
-        map.scrollZoom.enable();
-    }
-});
 
 var issIcon = new mapboxgl.Marker({
     element: document.createElement('img'),
@@ -55,10 +43,13 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+let lon;
+let lat;
+
 function updateISSLocation() {
     $.getJSON('https://api.wheretheiss.at/v1/satellites/25544', function (data) {
-        var lat = data['latitude'];
-        var lon = data['longitude'];
+        lat = data['latitude'];
+        lon = data['longitude'];
         var altitude = data['altitude'];
         var velocity = data['velocity'];
         var visibility = data['visibility'];
@@ -67,9 +58,9 @@ function updateISSLocation() {
         var distance = calculateDistance(lat, lon);
 
         if (visibility === 'eclipsed') {
-            mapStyle = map.setStyle('mapbox://styles/mapbox/dark-v10');
+           mapStyle = map.setStyle('mapbox://styles/mapbox/dark-v11');
         } else {
-            mapStyle = map.setStyle('mapbox://styles/mapbox/streets-v11');
+            mapStyle = map.setStyle('mapbox://styles/mapbox/outdoors-v12');
         }
 
         issIcon.setLngLat([lon, lat]).addTo(map);
@@ -162,4 +153,20 @@ document.getElementById('interval5').addEventListener('click', function() {
 document.getElementById('interval10').addEventListener('click', function() {
     changeUpdateFrequency(10000);
     document.getElementById('bottomText').textContent = 'Tracker updates every 10 seconds';
+});
+
+document.getElementById('lockButton').addEventListener('click', function () {
+    isLocked = !isLocked;
+    map.dragPan.enable();
+    map.scrollZoom.enable();
+
+    clearInterval(updateInterval);
+
+    if (isLocked) {
+        map.flyTo({ center: [lon, lat], zoom: 4 });
+    } else {
+        map.flyTo({ center: mapCenter, zoom: mapZoom });
+        map.dragPan.disable();
+        map.scrollZoom.disable();
+    }
 });
