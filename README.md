@@ -20,7 +20,7 @@ This is a simple web application that tracks the International Space Station (IS
 - JavaScript
 - Mapbox API for map rendering
 - [Where the ISS at? API](https://wheretheiss.at/) for ISS location data
-- [ipinfo.io](https://ipinfo.io/) for distance from you information
+- [ipinfo.io](https://ipinfo.io/) for fetching the distance between you and the ISS
 
 ## Credits
 - [Mapbox](https://www.mapbox.com/) for map rendering
